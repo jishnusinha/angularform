@@ -1,0 +1,182 @@
+<!------------
+ <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Codec</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>H .264</option>
+      <option>H.265</option>
+      <option>VP9</option>
+      <option>H.264 +VP9</option>
+    </select>
+  </div>
+  
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Format</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>HLS</option>
+      <option>M PEG-DASH</option>
+      <option>HLS + M PEG-DASH</option>
+      
+    </select>
+  
+  </div>
+
+
+
+
+    <button type="button" class="btn btn-warning">create</button>
+  
+
+    <div class="form-group">
+      <label>Email</label>
+      <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmail()">Add e-mail</button>
+      <input type="text" [class.is-invalid]="email.invalid && email.touched" formControlName="email" class="form-control">
+      <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+      <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
+        <input type="text" class="form-control my-1" [formControlName]="i">
+      </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Height">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Width">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Bitrate">
+      </div>
+    
+    </div>
+    </div>
+
+  
+
+
+
+
+
+
+
+
+
+ </form>
+
+---->
+
+
+
+<form #addressForm="ngForm" class="container mt-3" (ngSubmit)="logValue()">
+  <div class="row justify-content-center">
+    <div class="col-9">
+        
+      <div *ngIf = "page == 1">
+        <label for="exampleFormControlSelect1">Codec</label>
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="array.codec" name = "codec">
+          <option>H .264</option>
+          <option>H.265</option>
+          <option>VP9</option>
+          <option>H.264 +VP9</option>
+        </select>
+
+      
+       
+       
+        <input type="text" class="form-control" [(ngModel)]="field" name="array.field" placeholder="field"/>
+        {{field}}
+       
+        <label for="exampleFormControlSelect1">Format</label>
+        <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="array.format" name = "format">
+          <option>HLS</option>
+          <option>M PEG-DASH</option>
+          <option>HLS + M PEG-DASH</option>
+          
+        </select>
+      
+       {{format}}
+
+
+        <br>
+      <br>
+      
+      
+      <button type="button" class="btn btn-warning mb-2" (click)="next()">next</button>
+      
+      </div>
+      
+
+      
+     
+
+     <div *ngIf = "page == 2">
+      <button type="button" class="btn btn-warning mb-2" (click)="prev()">prev</button>
+      <button type="button" class="btn btn-success mb-2" (click)="next()">next</button>
+      <br>
+      <br>  
+      
+      <button type="button" class="btn btn-primary mb-2" (click)="addAddress()">Add New</button>
+      <section class="container border mb-4 p-3" *ngFor="let address of addresses; let i = index;">
+        <div class="row">
+          <div class="col-6">
+              <h4>Field {{i + 1}}</h4>
+          </div>
+          <div class="col-6 text-right">
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeAddress(i)">Remove</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+              <div class="form-group">
+                  <label>Height</label>
+                  <input type="text" class="form-control" [(ngModel)]="address.height" name="address_{{i}}" placeholder="height" required />
+                </div>
+          </div>
+          <div class="col-4">
+              <div class="form-group">
+                  <label>Width</label>
+                  <input type="text" class="form-control" [(ngModel)]="address.width" name="street_{{i}}" placeholder="width"/>
+                </div>
+          </div>
+        
+          <div class="col-4">
+            <div class="form-group">
+                <label>Bitrate</label>
+                <input type="text" class="form-control" [(ngModel)]="address.bitrate" name="street_{{i}}" placeholder="bitrate"/>
+              </div>
+        </div>
+        
+        
+        
+        </div>
+        
+
+      </section>
+
+
+      <div class="text-right">
+        <input type="submit" class="btn btn-success" value="Submit"/>
+    </div>
+
+
+     </div>
+
+
+
+      
+    </div>
+  </div>
+
+</form>
+
+{{array | json}}
+
+<router-outlet></router-outlet>
